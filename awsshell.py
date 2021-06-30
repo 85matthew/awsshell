@@ -19,7 +19,8 @@ credentials = sess.get_credentials().get_frozen_credentials()
 env_vars = dict()
 env_vars['aws_access_key_id'] = credentials.access_key
 env_vars['aws_secret_access_key'] = credentials.secret_key
-env_vars['aws_session_token'] = credentials.token
+if credentials.token:
+    env_vars['aws_session_token'] = credentials.token
 
 my_env = os.environ.copy()
 
@@ -31,4 +32,4 @@ args = shlex.split("bash")
 print("\n#############")
 print("Setting up AWS shell with access keys. 'exit' when finished")
 print("#############\n")
-subprocess.run(args, env=my_env, shell=True)
+subprocess.run(args, env=my_env, shell="True")
